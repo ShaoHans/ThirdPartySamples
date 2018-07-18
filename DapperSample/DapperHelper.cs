@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
-using static Dapper.SqlMapper;
+using DapperExtensions;
 
 namespace DapperSample
 {
@@ -24,7 +24,7 @@ namespace DapperSample
 
             DbConnection = new SqlConnection(_connectionString);
         }
-
+        
         public IDbTransaction BeginTransaction() => DbConnection.BeginTransaction();
         public IDbTransaction BeginTransaction(IsolationLevel il) => DbConnection.BeginTransaction(il);
         public void ChangeDatabase(string databaseName) => DbConnection.ChangeDatabase(databaseName);
@@ -34,7 +34,7 @@ namespace DapperSample
         public int Execute(string sql, object param = null) => DbConnection.Execute(sql, param);
         public IDataReader ExecuteReader(string sql, object param = null) => DbConnection.ExecuteReader(sql, param);
         public object ExecuteScalar(string sql, object param = null) => DbConnection.ExecuteScalar(sql, param);
-        public GridReader QueryMultiple(string sql, object param = null) => DbConnection.QueryMultiple(sql, param);
+        public SqlMapper.GridReader QueryMultiple(string sql, object param = null) => DbConnection.QueryMultiple(sql, param);
 
         public IEnumerable<dynamic> Query(string sql, object param = null) => DbConnection.Query(sql, param);
         public dynamic QueryFirst(string sql, object param = null) => DbConnection.QueryFirst(sql, param);
