@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.27705.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DapperSample", "DapperSample\DapperSample.csproj", "{21B5DBB3-E68B-4275-83BF-0D6DFE3E8D26}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RabbitMqSample", "RabbitMqSample", "{8A219129-DF94-4F15-8234-31A8BE7550EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMqDemo.Producer.Send", "RabbitMqDemo.Producer.Send\RabbitMqDemo.Producer.Send.csproj", "{FB319C73-6289-4450-BB7C-EE9580A3E760}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMqDemo.Consumer.Receive", "RabbitMqDemo.Consumer.Receive\RabbitMqDemo.Consumer.Receive.csproj", "{E52C5B38-4A95-408B-AA94-FAD4B3F9E0AC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +21,21 @@ Global
 		{21B5DBB3-E68B-4275-83BF-0D6DFE3E8D26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21B5DBB3-E68B-4275-83BF-0D6DFE3E8D26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21B5DBB3-E68B-4275-83BF-0D6DFE3E8D26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB319C73-6289-4450-BB7C-EE9580A3E760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB319C73-6289-4450-BB7C-EE9580A3E760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB319C73-6289-4450-BB7C-EE9580A3E760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB319C73-6289-4450-BB7C-EE9580A3E760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E52C5B38-4A95-408B-AA94-FAD4B3F9E0AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E52C5B38-4A95-408B-AA94-FAD4B3F9E0AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E52C5B38-4A95-408B-AA94-FAD4B3F9E0AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E52C5B38-4A95-408B-AA94-FAD4B3F9E0AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FB319C73-6289-4450-BB7C-EE9580A3E760} = {8A219129-DF94-4F15-8234-31A8BE7550EB}
+		{E52C5B38-4A95-408B-AA94-FAD4B3F9E0AC} = {8A219129-DF94-4F15-8234-31A8BE7550EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {218C92A7-0FB6-419A-A378-9C0773D5B9FE}
