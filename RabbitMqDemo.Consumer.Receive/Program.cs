@@ -16,7 +16,13 @@ namespace RabbitMqDemo.Consumer.Receive
             //new _3_Publish_Subscribe().Receive();
 
             // 4.Routing
-            new _4_Routing().Receive();
+            //new _4_Routing().Receive();
+
+            // 5.Topics
+            //new _5_Topics().Receive();
+
+            // 6.Rpc
+            new _6_RpcServer().Start();
 
             Console.ReadKey();
         }

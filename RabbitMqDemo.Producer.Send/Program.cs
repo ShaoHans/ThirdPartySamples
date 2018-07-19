@@ -16,7 +16,13 @@ namespace RabbitMqDemo.Producer.Send
             //new _3_Publish_Subscribe().Send();
 
             // 4.Routing
-            new _4_Routing().Send();
+            //new _4_Routing().Send();
+
+            // 5.Topics
+            //new _5_Topics().Send();
+
+            // 6.Rpc
+            new _6_RpcClient().Start();
 
             Console.ReadKey();
         }
