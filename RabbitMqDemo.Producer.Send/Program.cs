@@ -13,7 +13,7 @@ namespace RabbitMqDemo.Producer.Send
             //new _2_WorkQueue().Send();
 
             // 3.Publish/Subscribe
-            //new _3_Publish_Subscribe().Send();
+            new _3_Publish_Subscribe().Send();
 
             // 4.Routing
             //new _4_Routing().Send();
@@ -22,7 +22,7 @@ namespace RabbitMqDemo.Producer.Send
             //new _5_Topics().Send();
 
             // 6.Rpc
-            new _6_RpcClient().Start();
+            //new _6_RpcClient().Start();
 
             Console.ReadKey();
         }

@@ -10,8 +10,7 @@ namespace RabbitMqDemo.Consumer.Receive
     {
         public void Start()
         {
-            var factory = new ConnectionFactory() { HostName = "localhost", UserName = "shz", Password = "123456" };
-            using (var connection = factory.CreateConnection())
+            using (var connection = RabbitMqDemo.Common.Helper.CreateClusterConnection())
             using (var channel = connection.CreateModel())
             {
                 channel.QueueDeclare(queue: "rpc_queue", durable: false,

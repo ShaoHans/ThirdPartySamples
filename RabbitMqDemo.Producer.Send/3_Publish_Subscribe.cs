@@ -9,8 +9,7 @@ namespace RabbitMqDemo.Producer.Send
     {
         public void Send()
         {
-            var factory = new ConnectionFactory() { HostName = "localhost", UserName = "shz", Password = "123456" };
-            using (var connection = factory.CreateConnection()) // 1.创建连接
+            using (var connection = RabbitMqDemo.Common.Helper.CreateClusterConnection()) // 1.创建连接
             using (var channel = connection.CreateModel())      // 2.建立通道
             {
                 // 消息生产者把消息发送到指定的交换器，再由交换器发给与之绑定的队列

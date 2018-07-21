@@ -10,8 +10,7 @@ namespace RabbitMqDemo.Consumer.Receive
     {
         public void Receive()
         {
-            var factory = new ConnectionFactory() { HostName = "localhost", UserName = "shz", Password = "123456" };
-            using (var connection = factory.CreateConnection()) // 1.建立连接
+            using (var connection = RabbitMqDemo.Common.Helper.CreateClusterConnection()) // 1.建立连接
             using (var channel = connection.CreateModel())      // 2.创建信道
             {
                 // 3.声明队列

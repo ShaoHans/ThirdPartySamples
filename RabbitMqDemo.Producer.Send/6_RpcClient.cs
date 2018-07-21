@@ -18,8 +18,8 @@ namespace RabbitMqDemo.Producer.Send
 
         public _6_RpcClient()
         {
-            var factory = new ConnectionFactory() { HostName = "localhost", UserName = "shz", Password = "123456" };
-            connection = factory.CreateConnection();
+            
+            connection = RabbitMqDemo.Common.Helper.CreateClusterConnection();
             channel = connection.CreateModel();
             replyQueueName = channel.QueueDeclare().QueueName;
             consumer = new EventingBasicConsumer(channel);
