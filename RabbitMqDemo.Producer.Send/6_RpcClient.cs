@@ -19,7 +19,7 @@ namespace RabbitMqDemo.Producer.Send
         public _6_RpcClient()
         {
             
-            connection = RabbitMqDemo.Common.Helper.CreateClusterConnection();
+            connection = RabbitMqDemo.Common.Helper.CreateConnection(Common.ConnectionType.Cluster);
             channel = connection.CreateModel();
             replyQueueName = channel.QueueDeclare().QueueName;
             consumer = new EventingBasicConsumer(channel);

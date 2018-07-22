@@ -6,12 +6,15 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DapperSample", "DapperSample\DapperSample.csproj", "{21B5DBB3-E68B-4275-83BF-0D6DFE3E8D26}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RabbitMqSample", "RabbitMqSample", "{8A219129-DF94-4F15-8234-31A8BE7550EB}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\shz\Desktop\CentOS7.0安装RabbitMq-Server以及集群搭建.txt = C:\Users\shz\Desktop\CentOS7.0安装RabbitMq-Server以及集群搭建.txt
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMqDemo.Producer.Send", "RabbitMqDemo.Producer.Send\RabbitMqDemo.Producer.Send.csproj", "{FB319C73-6289-4450-BB7C-EE9580A3E760}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMqDemo.Consumer.Receive", "RabbitMqDemo.Consumer.Receive\RabbitMqDemo.Consumer.Receive.csproj", "{E52C5B38-4A95-408B-AA94-FAD4B3F9E0AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMqDemo.Common", "RabbitMqDemo.Common\RabbitMqDemo.Common.csproj", "{15CE644D-87B8-411E-9C07-F47F189D0A7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMqDemo.Common", "RabbitMqDemo.Common\RabbitMqDemo.Common.csproj", "{15CE644D-87B8-411E-9C07-F47F189D0A7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

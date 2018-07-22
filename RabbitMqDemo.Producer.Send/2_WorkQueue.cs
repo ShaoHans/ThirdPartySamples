@@ -9,8 +9,7 @@ namespace RabbitMqDemo.Producer.Send
     {
         public void Send()
         {
-            var factory = new ConnectionFactory() { HostName = "localhost", UserName = "shz", Password = "123456" };
-            using (var connection = factory.CreateConnection())
+            using (var connection = RabbitMqDemo.Common.Helper.CreateConnection(Common.ConnectionType.Cluster))
             using (var channel = connection.CreateModel())
             {
                 channel.QueueDeclare(queue: "work_queue",

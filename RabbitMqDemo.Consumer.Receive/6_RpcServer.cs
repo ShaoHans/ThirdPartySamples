@@ -10,7 +10,7 @@ namespace RabbitMqDemo.Consumer.Receive
     {
         public void Start()
         {
-            using (var connection = RabbitMqDemo.Common.Helper.CreateClusterConnection())
+            using (var connection = RabbitMqDemo.Common.Helper.CreateConnection(Common.ConnectionType.Cluster))
             using (var channel = connection.CreateModel())
             {
                 channel.QueueDeclare(queue: "rpc_queue", durable: false,

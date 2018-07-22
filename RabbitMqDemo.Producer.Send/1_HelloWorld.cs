@@ -9,7 +9,7 @@ namespace RabbitMqDemo.Producer.Send
     {
         public void Send()
         {
-            using (var connection = RabbitMqDemo.Common.Helper.CreateClusterConnection()) // 1.建立连接
+            using (var connection = RabbitMqDemo.Common.Helper.CreateConnection(Common.ConnectionType.Cluster)) // 1.建立连接
             using (var channel = connection.CreateModel())      // 2.创建信道
             {
                 // 3.声明队列

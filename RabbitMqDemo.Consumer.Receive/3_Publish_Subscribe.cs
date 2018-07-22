@@ -10,7 +10,7 @@ namespace RabbitMqDemo.Consumer.Receive
     {
         public void Receive()
         {
-            using (var connection = RabbitMqDemo.Common.Helper.CreateClusterConnection())
+            using (var connection = RabbitMqDemo.Common.Helper.CreateConnection(Common.ConnectionType.Cluster))
             using (var channel = connection.CreateModel())
             {
                 // 消费者之所以也要和生产者定义同样的exchange，是因为当消费者先启动时，如果没有exchange就进行queue绑定会出错，
