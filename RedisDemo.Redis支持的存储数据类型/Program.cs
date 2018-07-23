@@ -14,7 +14,9 @@ namespace RedisDemo
             float errorRate = 0.001F; // 0.1%
             BloomFilterForRedis<string> bloomFilter = new BloomFilterForRedis<string>(capacity, errorRate, null);
             //TestBloomFilter(bloomFilter);
-            Console.WriteLine($"{bloomFilter.Contains("198")}");
+            Console.WriteLine($"{bloomFilter.Contains("88")}");
+            Console.WriteLine($"{bloomFilter.Contains("23")}");
+            Console.WriteLine($"{bloomFilter.Contains("we")}");
             Console.WriteLine(bloomFilter.BitCount);
 
             Console.ReadKey();
