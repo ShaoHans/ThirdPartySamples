@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Redis订阅", "RedisDemo.Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Redis发布", "RedisDemo.Redis发布\Redis发布.csproj", "{9E11A9AD-0976-4F28-864C-7850442316EE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Redis支持的存储数据类型", "RedisDemo.Redis支持的存储数据类型\Redis支持的存储数据类型.csproj", "{850BB757-0893-4986-AE31-2AA3F4E4C7D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisDemo", "RedisDemo.Redis支持的存储数据类型\RedisDemo.csproj", "{850BB757-0893-4986-AE31-2AA3F4E4C7D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

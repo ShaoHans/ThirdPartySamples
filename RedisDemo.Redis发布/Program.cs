@@ -14,14 +14,7 @@ namespace Redis发布
             while (!(msg = Console.ReadLine()).Equals("exit", StringComparison.OrdinalIgnoreCase))
             {
                 clientCount = redisHelper.Publish("mq", msg);
-                if (clientCount > 0)
-                {
-                    Console.WriteLine("有客户端接收到了该消息");
-                }
-                else
-                {
-                    Console.WriteLine("没有客户端接收该消息");
-                }
+                Console.WriteLine($"有{clientCount}个客户端接收到该消息");
             }
 
             Console.ReadKey();

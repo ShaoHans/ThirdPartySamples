@@ -46,7 +46,7 @@ namespace RedisDemo.Common
         public static readonly string SysCustomKey = "Test.Type.";
 
         //"127.0.0.1:6379,allowadmin=true
-        private static readonly string RedisConnectionString = "127.0.0.1:6379";
+        private static readonly string RedisConnectionString = "192.168.1.249:6379";
 
         private static readonly object Locker = new object();
         private static ConnectionMultiplexer _instance;

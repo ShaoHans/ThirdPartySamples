@@ -788,6 +788,63 @@ namespace RedisDemo.Common
 
         #endregion SortedSet 有序集合
 
+        #region HyperLogLog
+
+        public bool HyperLogLogAdd(string key, RedisValue value)
+        {
+            key = AddSysCustomKey(key);
+            return Do(db => db.HyperLogLogAdd(key, value));
+        }
+
+        public bool HyperLogLogAdd(string key, RedisValue[] values)
+        {
+            key = AddSysCustomKey(key);
+            return Do(db => db.HyperLogLogAdd(key, values));
+        }
+
+        public long HyperLogLogLength(string key)
+        {
+            key = AddSysCustomKey(key);
+            return Do(db => db.HyperLogLogLength(key));
+        }
+
+        public long HyperLogLogLength(List<string> keys)
+        {
+            List<string> newKeys = keys.Select(AddSysCustomKey).ToList();
+            return Do(db => db.HyperLogLogLength(ConvertRedisKeys(newKeys)));
+        }
+
+        public void HyperLogLogMerge(string destination, List<string> sourceKeys)
+        {
+            destination = AddSysCustomKey(destination);
+            List<string> newKeys = sourceKeys.Select(AddSysCustomKey).ToList();
+            Do(db => db.HyperLogLogMerge(destination, ConvertRedisKeys(newKeys)));
+        }
+
+        #endregion
+
+        #region BitMap
+
+        public bool StringSetBit(string key, long offset, bool bit)
+        {
+            key = AddSysCustomKey(key);
+            return Do(db => db.StringSetBit(key, offset, bit));
+        }
+
+        public bool StringGetBit(string key, long offset)
+        {
+            key = AddSysCustomKey(key);
+            return Do(db => db.StringGetBit(key, offset));
+        }
+
+        public long StringBitCount(string key, long start = 0, long end = -1)
+        {
+            key = AddSysCustomKey(key);
+            return Do(db => db.StringBitCount(key, start, end));
+        }
+
+        #endregion
+
         #region key
 
         /// <summary>
@@ -946,6 +1003,12 @@ namespace RedisDemo.Common
         {
             var database = _conn.GetDatabase(DbNum);
             return func(database);
+        }
+
+        private void Do(Action<IDatabase> action)
+        {
+            var database = _conn.GetDatabase(DbNum);
+            action(database);
         }
 
         private string ConvertJson<T>(T value)
