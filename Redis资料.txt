@@ -1,1 +1,2 @@
 1.面试题：https://baijiahao.baidu.com/s?id=1588454565071211950&wfr=spider&for=pc
+2.CentOS7上通过yum源安装redis，参考文章：https://www.cnblogs.com/rslai/p/8249812.html
