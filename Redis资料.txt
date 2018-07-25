@@ -73,4 +73,9 @@
 					cp /usr/local/src/redis-4.0.10/redis.conf /etc/redis/redis_6379.conf
 	  d.设置开启启动：chkconfig --add redis_6379
 	  e.启动redis服务：service redis_6379 start
+	  f.将redis相关命令添加到环境变量中：
+		修改profile文件：vim /etc/profile
+			追加 export PATH="$PATH:/usr/local/redis/bin"
+		保存profile文件，然后执行命令：. /etc/profile 
+		如此就可以在任何目录下执行redis-cli命令了
 
