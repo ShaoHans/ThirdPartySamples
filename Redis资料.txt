@@ -17,7 +17,7 @@
 		有可能一台Linux机器上需要安装多个redis实例，以示区分。
 	    ps:/etc/rc.d/init.d/目录下的脚本就类似与windows中的注册表，在系统启动的时候某些指定脚本将被执行。
 		执行命令：cp /usr/local/src/redis-4.0.10/utils/redis_init_script /etc/rc.d/init.d/redis_6379
-	  b.编辑redis_6379脚本文件
+	  b.编辑redis_6379脚本文件，vim /etc/rc.d/init.d/redis_6379
 			#!/bin/sh
 			#chkconfig: 2345 80 90 [修改点：添加此行内容]
 			# Simple Redis init.d script conceived to work on Linux systems
@@ -71,6 +71,12 @@
 	  c.将redis配置文件拷贝到/etc/redis/redis_${REDISPORT}.conf，
 	    执行以下命令：mkdir /etc/redis
 					cp /usr/local/src/redis-4.0.10/redis.conf /etc/redis/redis_6379.conf
+		编辑redis_6379.conf文件，修改以下参数：
+			dbfilename dump_6379.rdb
+			dir /usr/local/redis/files
+			appendonly yes
+			appendfilename "appendonly_6379.aof"
+			daemonize yes
 	  d.设置开启启动：chkconfig --add redis_6379
 	  e.启动redis服务：service redis_6379 start
 	  f.将redis相关命令添加到环境变量中：
@@ -79,3 +85,19 @@
 		保存profile文件，然后执行命令：. /etc/profile 
 		如此就可以在任何目录下执行redis-cli命令了
 
+	5.在同一台Linux主机上再部署一个redis实例
+	  a.复制开机启动服务文件，cp /etc/rc.d/init.d/redis_6379 /etc/rc.d/init.d/redis_6380
+	  b.编辑redis_6380文件，修改端口号为6380，REDISPORT=6380
+	  c.复制redis配置文件，cp /etc/redis/redis_6379.conf /etc/redis/redis_6380.conf
+	  d.编辑redis_6380.conf文件，修改以下参数：
+			port 6380
+			dbfilename dump_6380.rdb
+			dir /usr/local/redis/files
+			appendonly yes
+			appendfilename "appendonly_6380.aof"
+			daemonize yes
+	  e.设置开机启动：chkconfig --add redis_6380
+	  f.启动redis服务：service redis_6380 start
+	  g.通过redis-cli -p 6380进入客户端
+
+四.reids内存模型，主从复制，集群等内容参考：https://www.cnblogs.com/kismetv/p/8654978.html
