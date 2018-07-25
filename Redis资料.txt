@@ -1,2 +1,76 @@
-1.面试题：https://baijiahao.baidu.com/s?id=1588454565071211950&wfr=spider&for=pc
-2.CentOS7上通过yum源安装redis，参考文章：https://www.cnblogs.com/rslai/p/8249812.html
+一.面试题：https://baijiahao.baidu.com/s?id=1588454565071211950&wfr=spider&for=pc
+二.CentOS7上通过yum源安装redis，参考文章：https://www.cnblogs.com/rslai/p/8249812.html
+三.CentOS7上通过redis源码安装包安装，参考文章：https://www.cnblogs.com/_popc/p/3684835.html
+	1.希望将redis安装到此目录：/usr/local/redis，
+	  希望将安装包下载到此目录：/usr/local/src，
+	2.安装过程指令如下：
+	  a.创建目录：mkdir -p /usr/local/redis
+	  b.进入目录：cd /usr/local/src
+	  c.下载redis源码包：wget http://download.redis.io/releases/redis-4.0.10.tar.gz
+	  d.加压源码包：tar xzf redis-4.0.10.tar.gz
+	  e.进入目录：cd redis-4.0.10
+	  f.编译和安装：make PREFIX=/usr/local/redis install #安装到指定目录中
+	3.进入 cd /usr/local/redis/bin 目录可以看到以下文件（注意redis.conf并没有安装到此目录）：
+	  redis-benchmark  redis-check-aof  redis-check-rdb  redis-cli  redis-sentinel  redis-server
+	4.将redis做成一个服务，可以开机启动
+	  a.将脚本文件/usr/local/src/redis/utils/redis_init_script复制脚本到/etc/rc.d/init.d目录，重命名为redis_6379，之所以加上6379后缀，是因为
+		有可能一台Linux机器上需要安装多个redis实例，以示区分。
+	    ps:/etc/rc.d/init.d/目录下的脚本就类似与windows中的注册表，在系统启动的时候某些指定脚本将被执行。
+		执行命令：cp /usr/local/src/redis-4.0.10/utils/redis_init_script /etc/rc.d/init.d/redis_6379
+	  b.编辑redis_6379脚本文件
+			#!/bin/sh
+			#chkconfig: 2345 80 90 [修改点：添加此行内容]
+			# Simple Redis init.d script conceived to work on Linux systems
+			# as it does use of the /proc filesystem.
+
+			### BEGIN INIT INFO
+			# Provides:     redis_6379
+			# Default-Start:        2 3 4 5
+			# Default-Stop:         0 1 6
+			# Short-Description:    Redis data structure server
+			# Description:          Redis data structure server. See https://redis.io
+			### END INIT INFO
+
+			REDISPORT=6379
+			EXEC=/usr/local/redis/bin/redis-server	[修改点：目录变更]
+			CLIEXEC=/usr/local/redis/bin/redis-cli	[修改点：目录变更]
+
+			PIDFILE=/var/run/redis_${REDISPORT}.pid
+			CONF="/etc/redis/redis_${REDISPORT}.conf"		[修改点：配置文件名变更]
+
+			case "$1" in
+				start)
+					if [ -f $PIDFILE ]
+					then
+							echo "$PIDFILE exists, process is already running or crashed"
+					else
+							echo "Starting Redis server..."
+							$EXEC $CONF &		[修改点：多了个&字符]
+					fi
+					;;
+				stop)
+					if [ ! -f $PIDFILE ]
+					then
+							echo "$PIDFILE does not exist, process is not running"
+					else
+							PID=$(cat $PIDFILE)
+							echo "Stopping ..."
+							$CLIEXEC -p $REDISPORT shutdown
+							while [ -x /proc/${PID} ]
+							do
+								echo "Waiting for Redis to shutdown ..."
+								sleep 1
+							done
+							echo "Redis stopped"
+					fi
+					;;
+				*)
+					echo "Please use start or stop as first argument"
+					;;
+			esac
+	  c.将redis配置文件拷贝到/etc/redis/redis_${REDISPORT}.conf，
+	    执行以下命令：mkdir /etc/redis
+					cp /usr/local/src/redis-4.0.10/redis.conf /etc/redis/redis_6379.conf
+	  d.设置开启启动：chkconfig --add redis_6379
+	  e.启动redis服务：service redis_6379 start
+
