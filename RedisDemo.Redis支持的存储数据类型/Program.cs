@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RedisDemo.Common;
+using System;
 using System.Collections.Generic;
 
 namespace RedisDemo
@@ -7,8 +8,11 @@ namespace RedisDemo
     {
         static void Main(string[] args)
         {
-            DataTypeTest dataTypeTest = new DataTypeTest();
-            dataTypeTest.HashTest();
+            RedisHelper redisHelper = new RedisHelper();
+            redisHelper.StringSet("gogo", "www.cggogo.com");
+            Console.WriteLine(redisHelper.StringGet("gogo")); 
+            //DataTypeTest dataTypeTest = new DataTypeTest();
+            //dataTypeTest.HashTest();
             //dataTypeTest.HyperLogLogTest();
 
             //int capacity = 100;

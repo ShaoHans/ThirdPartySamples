@@ -91,16 +91,27 @@ namespace RedisDemo.Common
         private static ConnectionMultiplexer GetManager(string connectionString = null)
         {
             connectionString = connectionString ?? RedisConnectionString;
+
+    //        ConfigurationOptions options = new ConfigurationOptions()
+    //        {
+    //            EndPoints =
+    //            {
+    //                { "10.0.0.9", 9001 },
+    //                { "10.0.0.9", 9002 },
+    //                { "10.0.0.9", 9003 },
+    //                //{ "10.0.0.9", 9004 },
+    //                //{ "10.0.0.9", 9005 },
+    //                //{ "10.0.0.9", 9006 },
+    //            },
+    //            CommandMap = CommandMap.Create(new HashSet<string>
+    //{ // EXCLUDE a few commands
+    //    "INFO", "CONFIG", "CLUSTER",
+    //    "PING", "ECHO", "CLIENT"
+    //}, available: false),
+    //        };
             var connect = ConnectionMultiplexer.Connect(connectionString);
-            //ConfigurationOptions options = new ConfigurationOptions()
-            //{
-            //    EndPoints =
-            //    {
-            //        { "redis0", 6379 },
-            //        { "redis1", 6380 }
-            //    }
-            //};
             
+
 
             //注册如下事件
             connect.ConnectionFailed += MuxerConnectionFailed;
