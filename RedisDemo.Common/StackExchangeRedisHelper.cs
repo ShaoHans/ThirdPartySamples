@@ -92,6 +92,15 @@ namespace RedisDemo.Common
         {
             connectionString = connectionString ?? RedisConnectionString;
             var connect = ConnectionMultiplexer.Connect(connectionString);
+            //ConfigurationOptions options = new ConfigurationOptions()
+            //{
+            //    EndPoints =
+            //    {
+            //        { "redis0", 6379 },
+            //        { "redis1", 6380 }
+            //    }
+            //};
+            
 
             //注册如下事件
             connect.ConnectionFailed += MuxerConnectionFailed;
