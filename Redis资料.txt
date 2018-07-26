@@ -102,3 +102,34 @@
 
 四.reids内存模型，主从复制，集群等内容参考系列文章：https://www.cnblogs.com/kismetv/p/8654978.html
 	1.集群原理：https://blog.csdn.net/yejingtao703/article/details/78484151
+	2.单台机器搭建多个redis实例，组成集群，本实例将创建6个redis节点，其中3个Mater，3个Slaver
+		a.确保Linux机器上已经安装了redis服务，可参考上文的安装教程，我机器上redis服务所在目录/usr/local/redis/bin/
+		b.创建集群目录，在该目录下创建6个子目录，分别命名为9001~9006，与要绑定的端口号一致，命令如下：
+			mkdir -p /usr/local/redis-cluster
+			mkdir -p 9001/data 9002/data 9003/data 9004/data 9005/data 9006/data
+		c.把redis服务的配置文件拷贝到[9001/data]目录下，并命名为redis_9001.conf，命令如下：
+			cp /etc/redis/redis_6379.conf /usr/local/redis-cluster/9002/redis_9001.conf
+		d.编辑redis_9001.conf文件，修改以下常规项：
+			port 9001（每个节点的端口号）
+			daemonize yes（后台运行）
+			bind 10.0.0.9（绑定当前机器 IP）
+			dir /usr/local/redis-cluster/9001/data/（数据文件存放位置）
+			pidfile /var/run/redis_9001.pid（pid 9001和port要对应）
+			cluster-enabled yes（启动集群模式）
+			cluster-config-file nodes-9001.conf（9001和port要对应）
+			cluster-node-timeout 15000
+			appendonly yes
+		e.再把修改好的redis_9001.conf文件分别拷贝到9002/data，9003/data等目录下，并编辑相关参数，其实只是和
+		  端口相关的参数需要修改，在vim时可通过 :%s/9001/9002替换
+		f.所有实例的配置文件修改完成之后，可以通过命令启动相应实例，命令如下：
+			redis-server /usr/local/redis-cluster/9001/redis_9001.conf
+			同理，其他端口的也是这样启动
+		g.以上步骤只是启动了6个redis节点，但并没有组成集群，它们之间还不能进行通信。接下来需要安装集群所需软件：
+			yum install ruby
+			yum install rubygems
+			gem install redis
+			在执行gem install redis这一步时，会报错：redis requires Ruby version >= 2.2.2.
+			，解决方法：https://www.cnblogs.com/PatrickLiu/p/8454579.html
+		h.创建集群：
+			redis-trib.rb create --replicas 1 10.0.0.9:9001 10.0.0.9:9002 10.0.0.9:9003 10.0.0.9:9004 10.0.0.9:9005 10.0.0.9:9006
+		  创建完集群之后，通过命令：redis-cli -c -h 10.0.0.9 -p 9001进入操作			
