@@ -7,17 +7,18 @@ namespace RedisDemo
     {
         static void Main(string[] args)
         {
-            //DataTypeTest dataTypeTest = new DataTypeTest();
+            DataTypeTest dataTypeTest = new DataTypeTest();
+            dataTypeTest.HashTest();
             //dataTypeTest.HyperLogLogTest();
 
-            int capacity = 100;
-            float errorRate = 0.001F; // 0.1%
-            BloomFilterForRedis<string> bloomFilter = new BloomFilterForRedis<string>(capacity, errorRate, null);
-            TestBloomFilter(bloomFilter);
-            Console.WriteLine($"{bloomFilter.Contains("88")}");
-            Console.WriteLine($"{bloomFilter.Contains("23")}");
-            Console.WriteLine($"{bloomFilter.Contains("we")}");
-            Console.WriteLine(bloomFilter.BitCount);
+            //int capacity = 100;
+            //float errorRate = 0.001F; // 0.1%
+            //BloomFilterForRedis<string> bloomFilter = new BloomFilterForRedis<string>(capacity, errorRate, null);
+            //TestBloomFilter(bloomFilter);
+            //Console.WriteLine($"{bloomFilter.Contains("88")}");
+            //Console.WriteLine($"{bloomFilter.Contains("23")}");
+            //Console.WriteLine($"{bloomFilter.Contains("we")}");
+            //Console.WriteLine(bloomFilter.BitCount);
 
             Console.ReadKey();
         }

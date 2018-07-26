@@ -100,4 +100,5 @@
 	  f.启动redis服务：service redis_6380 start
 	  g.通过redis-cli -p 6380进入客户端
 
-四.reids内存模型，主从复制，集群等内容参考：https://www.cnblogs.com/kismetv/p/8654978.html
+四.reids内存模型，主从复制，集群等内容参考系列文章：https://www.cnblogs.com/kismetv/p/8654978.html
+	1.集群原理：https://blog.csdn.net/yejingtao703/article/details/78484151

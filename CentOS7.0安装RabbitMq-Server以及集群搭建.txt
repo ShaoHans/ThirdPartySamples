@@ -1,65 +1,64 @@
 一、CentOS7.0安装RabbitMq-Server步骤
-1.在虚拟机上安装完CentOS7.0后，进行网络配置，并重启系统
-2.对yum源进行更新，操作命令：yum -y update
-3.更新完yum源之后，在安装erlang时，如果报这种错误：No package available，则执行命令：yum install epel-release
-4.接着安装erlang，安装命令：yum -y install erlang
-5.最后安装rabbitmq，安装命令：yum -y install rabbitmq-server
-6.启动rabbitmq服务，执行命令：service rabbitmq-server start
-7.启用rabbitmq管理界面，安装相应插件，执行命令：rabbitmq-plugins enable rabbitmq_management
-8.打开端口
-/sbin/iptables -I INPUT -p tcp --dport 15672 -j ACCEPT
-/sbin/iptables -I INPUT -p tcp --dport 5672 -j ACCEPT
-9.重启rabbitmq服务，执行命令：service rabbitmq-server restart
-10.浏览器访问：http://虚拟机的ip:15672，默认用户名：guest，密码：guest
-11.
-添加用户：rabbitmqctl add_user shz 123456
-给用户设置角色：rabbitmqctl set_user_tags shz administrator
-给用户设置权限：rabbitmqctl set_permissions -p / shz '.*' '.*' '.*'  
-12.设置rabbitmq-server开机启动
-chkconfig rabbitmq-server on
+	1.在虚拟机上安装完CentOS7.0后，进行网络配置，并重启系统
+	2.对yum源进行更新，操作命令：yum -y update
+	3.更新完yum源之后，在安装erlang时，如果报这种错误：No package available，则执行命令：yum install epel-release
+	4.接着安装erlang，安装命令：yum -y install erlang
+	5.最后安装rabbitmq，安装命令：yum -y install rabbitmq-server
+	6.启动rabbitmq服务，执行命令：service rabbitmq-server start
+	7.启用rabbitmq管理界面，安装相应插件，执行命令：rabbitmq-plugins enable rabbitmq_management
+	8.打开端口
+	/sbin/iptables -I INPUT -p tcp --dport 15672 -j ACCEPT
+	/sbin/iptables -I INPUT -p tcp --dport 5672 -j ACCEPT
+	9.重启rabbitmq服务，执行命令：service rabbitmq-server restart
+	10.浏览器访问：http://虚拟机的ip:15672，默认用户名：guest，密码：guest
+	11.
+	添加用户：rabbitmqctl add_user shz 123456
+	给用户设置角色：rabbitmqctl set_user_tags shz administrator
+	给用户设置权限：rabbitmqctl set_permissions -p / shz '.*' '.*' '.*'  
+	12.设置rabbitmq-server开机启动
+	chkconfig rabbitmq-server on
 
 二、搭建RabbitMq集群
-1.假设有两台Linux虚拟机，IP地址分别为：10.0.0.9，10.0.0.10
-1.修改IP为10.0.0.9的Linux虚拟机的HostName为node1，操作命令：vi /etc/hostname
-2.修改hosts文件，vi /etc/hosts
-node1 10.0.0.9
-node2 10.0.0.10
-#127.0.0.1   node1
-#::1         node1
-注意需要重启系统：reboot
-3.同理修改IP为10.0.0.10的Linux虚拟机的HostName为node2，修改hosts文件内容如下：
-10.0.0.9 node1
-10.0.0.10 node2
-#127.0.0.1   node2
-#::1         node2
-4.在node1（node2）上安装Samba服务，是一种在局域网上共享文件和打印机的一种通信协议，它为局域网内的不同计算机之间提供文件及打印机等资源的共享服务。
-参考文章：https://www.linuxidc.com/Linux/2017-11/148354.htm
-操作命令：
-yum -y install samba samba-client 
-systemctl start smb nmb
-5.执行完上述操作后，可以ping通ip，但无法ping通hostname，即在node1中无法ping node2，在node2中无法ping node1，为了解决这个问题，可以通过如下操作，
-参考文章：https://www.linuxidc.com/Linux/2017-03/142253.htm
-a.安装windbind：yum install samba-winbind-clients
-b.修改 vi /etc/nsswitch.conf：添加 wins 选项
-hosts:      files dns myhostname wins
-c.修改 vi /etc/samba/smb.conf：在security = user下一行添加 map to guest = bad user
-如上操作后就可以实现局域网内Linux虚拟机通过hostname互ping了。
-6.如果想在windows操作系统上ping node1（node2），需要配置一下windows的hosts文件，打开所在目录：C:\Windows\System32\drivers\etc
-加上如下配置即可：
-10.0.0.9 node1
-10.0.0.10 node2
-7.前面6步是搭建集群的必要工作，这一步开始真正搭建集群
-参考文章：https://www.cnblogs.com/xishuai/p/centos-rabbitmq-cluster-and-haproxy.html 
-Erlang Cookie 是保证不同节点可以相互通信的密钥，要保证集群中的不同节点相互通信必须共享相同的 Erlang Cookie。
-a.将node1服务器中的.erlang.cookie文件复制到node2，通过以下命令：
-scp /var/lib/rabbitmq/.erlang.cookie root@node2:/var/lib/rabbitmq/
-b.以后台方式启动rabbitmq-server，在node1和node2上均做以下操作：
-rabbitmqctl stop
-rabbitmq-server -detached
-c.以node1为作为集群中心，在node2上执行加入集群中心node1的命令
-rabbitmqctl stop_app
-rabbitmqctl reset
-rabbitmqctl join_cluster rabbit@node1 //默认是磁盘节点，如果是内存节点的话，需要加--ram参数
-rabbitmqctl start_app  
-d.在node1或node2上通过rabbitmqctl cluster_status命令查看集群状态
-8.集群原理介绍：https://www.jianshu.com/p/6376936845ff
+	1.假设有两台Linux虚拟机，IP地址分别为：10.0.0.9，10.0.0.10
+	1.修改IP为10.0.0.9的Linux虚拟机的HostName为node1，操作命令：vi /etc/hostname
+	2.修改hosts文件，vi /etc/hosts
+	node1 10.0.0.9
+	node2 10.0.0.10
+	#127.0.0.1   node1
+	#::1         node1
+	注意需要重启系统：reboot
+	3.同理修改IP为10.0.0.10的Linux虚拟机的HostName为node2，修改hosts文件内容如下：
+	10.0.0.9 node1
+	10.0.0.10 node2
+	#127.0.0.1   node2
+	#::1         node2
+	4.在node1（node2）上安装Samba服务，是一种在局域网上共享文件和打印机的一种通信协议，它为局域网内的不同计算机之间提供文件及打印机等资源的共享服务。
+	参考文章：https://www.linuxidc.com/Linux/2017-11/148354.htm
+	操作命令：
+	yum -y install samba samba-client 
+	systemctl start smb nmb
+	5.执行完上述操作后，可以ping通ip，但无法ping通hostname，即在node1中无法ping node2，在node2中无法ping node1，为了解决这个问题，可以通过如下操作，
+	参考文章：https://www.linuxidc.com/Linux/2017-03/142253.htm
+		a.安装windbind：yum install samba-winbind-clients
+		b.修改 vi /etc/nsswitch.conf：添加 wins 选项
+		hosts:      files dns myhostname wins
+		c.修改 vi /etc/samba/smb.conf：在security = user下一行添加 map to guest = bad user
+		如上操作后就可以实现局域网内Linux虚拟机通过hostname互ping了。
+	6.如果想在windows操作系统上ping node1（node2），需要配置一下windows的hosts文件，打开所在目录：C:\Windows\System32\drivers\etc
+	加上如下配置即可：
+	10.0.0.9 node1
+	10.0.0.10 node2
+	7.前面6步是搭建集群的必要工作，这一步开始真正搭建集群
+	参考文章：https://www.cnblogs.com/xishuai/p/centos-rabbitmq-cluster-and-haproxy.html 
+	Erlang Cookie 是保证不同节点可以相互通信的密钥，要保证集群中的不同节点相互通信必须共享相同的 Erlang Cookie。
+		a.将node1服务器中的.erlang.cookie文件复制到node2，通过以下命令： scp /var/lib/rabbitmq/.erlang.cookie root@node2:/var/lib/rabbitmq/
+		b.以后台方式启动rabbitmq-server，在node1和node2上均做以下操作：
+			rabbitmqctl stop
+			rabbitmq-server -detached
+		c.以node1为作为集群中心，在node2上执行加入集群中心node1的命令
+			rabbitmqctl stop_app
+			rabbitmqctl reset
+			rabbitmqctl join_cluster rabbit@node1 //默认是磁盘节点，如果是内存节点的话，需要加--ram参数
+			rabbitmqctl start_app  
+		d.在node1或node2上通过rabbitmqctl cluster_status命令查看集群状态
+	8.集群原理介绍：https://www.jianshu.com/p/6376936845ff
