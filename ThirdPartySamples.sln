@@ -29,6 +29,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Redis发布", "RedisDemo.Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RedisDemo", "RedisDemo.Redis支持的存储数据类型\RedisDemo.csproj", "{850BB757-0893-4986-AE31-2AA3F4E4C7D3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CAP-RabbitMq", "CAP-RabbitMq", "{A16300D8-EA0A-4B11-BD32-48E0E7D77E44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapRabbitMqDemo.Producer.Send", "CapRabbitMqDemo.Producer.Send\CapRabbitMqDemo.Producer.Send.csproj", "{17BEF65D-E895-4A74-89AB-306832B39557}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapRabbitMqDemo.Consumer.Receive", "CapRabbitMqDemo.Consumer.Receive\CapRabbitMqDemo.Consumer.Receive.csproj", "{3BC4C1BD-4C0D-4C49-B7C2-50245C09F5B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +73,14 @@ Global
 		{850BB757-0893-4986-AE31-2AA3F4E4C7D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{850BB757-0893-4986-AE31-2AA3F4E4C7D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{850BB757-0893-4986-AE31-2AA3F4E4C7D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17BEF65D-E895-4A74-89AB-306832B39557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17BEF65D-E895-4A74-89AB-306832B39557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17BEF65D-E895-4A74-89AB-306832B39557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17BEF65D-E895-4A74-89AB-306832B39557}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BC4C1BD-4C0D-4C49-B7C2-50245C09F5B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BC4C1BD-4C0D-4C49-B7C2-50245C09F5B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BC4C1BD-4C0D-4C49-B7C2-50245C09F5B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BC4C1BD-4C0D-4C49-B7C2-50245C09F5B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +93,8 @@ Global
 		{9DB23ABB-1F68-49E5-BBBE-26E1A0F88745} = {0F866546-C2CF-423F-9846-AD5B24C81C15}
 		{9E11A9AD-0976-4F28-864C-7850442316EE} = {0F866546-C2CF-423F-9846-AD5B24C81C15}
 		{850BB757-0893-4986-AE31-2AA3F4E4C7D3} = {0F866546-C2CF-423F-9846-AD5B24C81C15}
+		{17BEF65D-E895-4A74-89AB-306832B39557} = {A16300D8-EA0A-4B11-BD32-48E0E7D77E44}
+		{3BC4C1BD-4C0D-4C49-B7C2-50245C09F5B6} = {A16300D8-EA0A-4B11-BD32-48E0E7D77E44}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {218C92A7-0FB6-419A-A378-9C0773D5B9FE}
