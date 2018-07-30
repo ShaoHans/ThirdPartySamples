@@ -37,6 +37,7 @@ namespace CapRabbitMqDemo.Consumer.Receive
                     configure.UserName = "shz";
                     configure.Password = "123456";
                 });
+                options.UseDashboard();
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
